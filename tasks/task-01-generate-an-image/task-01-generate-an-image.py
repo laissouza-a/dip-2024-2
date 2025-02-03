@@ -2,6 +2,10 @@ import argparse
 import numpy as np
 import cv2
 
+#RUN:
+#python task-01-generate-an-image.py --registration_number 22111212 --width 256 --height 256 --mean 128 --std 30 --output output.png
+
+
 def generate_image(seed, width, height, mean, std):
     """
     Generates a grayscale image with pixel values sampled from a normal distribution.
@@ -17,7 +21,17 @@ def generate_image(seed, width, height, mean, std):
         image (numpy.ndarray): The generated image.
     """
     ### START CODE HERE ###
-    ### TODO
+
+    np.random.seed(seed)
+
+    #pixel values from a normal distribution
+    image = np.random.normal(mean, std, (height, width))
+
+    #range [0, 255]
+    image = np.clip(image, 0, 255)
+
+    #convert to uint8 (grayscale)
+    image = image.astype(np.uint8)
     ### END CODE HERE ###
 
     return image
