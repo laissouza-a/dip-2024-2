@@ -26,8 +26,18 @@ Notes:
 
 import cv2 as cv
 import numpy as np
-import scikitimage as ski
+from skimage.exposure import match_histograms
 
 def match_histograms_rgb(source_img: np.ndarray, reference_img: np.ndarray) -> np.ndarray:
-    # Your implementation here
-    pass
+    matched_img = match_histograms(source_img, reference_img, channel_axis=-1)
+    return matched_img.astype(np.uint8)
+
+
+source = cv.imread('source.jpg')       
+reference = cv.imread('reference.jpg') 
+
+source_rgb = cv.cvtColor(source, cv.COLOR_BGR2RGB)
+reference_rgb = cv.cvtColor(reference, cv.COLOR_BGR2RGB)
+
+matched = match_histograms_rgb(source_rgb, reference_rgb)
+
